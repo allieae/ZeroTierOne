@@ -32,13 +32,13 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "ZeroTierOne 1.4.6"
+PROJECT_NAME           = "ZeroTierOne N.N.N"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 0001
+PROJECT_NUMBER         = 0000
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -58,7 +58,7 @@ PROJECT_LOGO           =
 # entered, it will be relative to the location where doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/src-docs/
+OUTPUT_DIRECTORY       = src-docs
 
 # If the CREATE_SUBDIRS tag is set to YES then doxygen will create 4096 sub-
 # directories (in 2 levels) under the output directory of each output format and
@@ -813,14 +813,14 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/include \
-                         @CMAKE_CURRENT_SOURCE_DIR@/node \
-                         @CMAKE_CURRENT_SOURCE_DIR@/controller \
-                         @CMAKE_CURRENT_SOURCE_DIR@/service \
-                         @CMAKE_CURRENT_SOURCE_DIR@/osdep \
-                         @CMAKE_CURRENT_SOURCE_DIR@/ext/http-parser/http_parser.c \
-                         @CMAKE_CURRENT_SOURCE_DIR@/version.h \
-                         @CMAKE_CURRENT_SOURCE_DIR@/one.cpp
+INPUT                  = include \
+                         node \
+                         controller \
+                         service \
+                         osdep \
+                         ext/http-parser/http_parser.c \
+                         version.h \
+                         one.cpp
 
 
 # This tag can be used to specify the character encoding of the source files
