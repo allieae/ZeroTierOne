@@ -77,7 +77,7 @@ else
 	override CFLAGS+=-Wall -Wno-deprecated -pthread $(INCLUDES) -DNDEBUG $(DEFS)
 	CXXFLAGS?=-O3 -fstack-protector -fPIE
 	override CXXFLAGS+=-Wall -Wno-deprecated -std=c++11 -pthread $(INCLUDES) -DNDEBUG $(DEFS)
-	LDFLAGS=-pie -Wl,-z,relro,-z,now
+	LDFLAGS?=-pie -Wl,-z,relro,-z,now
 	STRIP?=strip
 	STRIP+=--strip-all
 endif
