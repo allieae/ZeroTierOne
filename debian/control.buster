@@ -3,7 +3,7 @@ Maintainer: Adam Ierymenko <adam.ierymenko@zerotier.com>
 Section: net
 Priority: optional
 Standards-Version: 3.9.8
-Build-Depends: debhelper (>= 9.20160709)
+Build-Depends: debhelper (>= 9.20160709), libminiupnpc-dev
 Vcs-Git: git://github.com/zerotier/ZeroTierOne
 Vcs-Browser: https://github.com/zerotier/ZeroTierOne
 Homepage: https://www.zerotier.com/
@@ -12,7 +12,7 @@ Package: zerotier-one
 Architecture: any
 Build-Profiles: <!pkg.zerotier-one.ctlr>
 Depends:  ${shlibs:Depends}, ${misc:Depends}, iproute2, adduser, libstdc++6,
- lsb-base
+ libminiupnpc17, lsb-base
 Homepage: https://www.zerotier.com/
 Description: ZeroTier network virtualization service
  ZeroTier One lets you join ZeroTier virtual networks and
@@ -24,7 +24,7 @@ Package: zerotier-ctlr
 Architecture: any
 Build-Profiles: <pkg.zerotier-one.ctlr>
 Depends:  ${shlibs:Depends}, ${misc:Depends}, iproute2, adduser, libstdc++6,
- lsb-base
+ libminiupnpc17, lsb-base
 Homepage: https://www.zerotier.com/
 Description: ZeroTier network virtualization service
  ZeroTier One lets you join ZeroTier virtual networks and
