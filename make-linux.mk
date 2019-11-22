@@ -409,6 +409,10 @@ uninstall:	FORCE
 
 # These are just for convenience for building Linux packages
 
+debian-src:	FORCE
+	mkdir -p dist
+	tar czf dist/zerotier-one_1.4.6.orig.tar.gz --exclude='./zerotier-one-1.4.6/.git' --exclude='./zerotier-one-1.4.6/ext/bin/*' --xattrs --acls -C ../ ./zerotier-one-1.4.6
+
 debian:	FORCE
 	debuild -I -i -us -uc -nc -b
 

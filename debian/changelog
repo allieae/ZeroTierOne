@@ -1,9 +1,3 @@
-zerotier-one (1.4.6-1.0~node1.1) unstable; urgency=medium
-
-  * fix parallel makes and update clean targets for ctlr
-
- -- Stephen L Arnold <nerdboy@gentoo.org>  Fri, 22 Nov 2019 05:07:19 +0000
-
 zerotier-one (1.4.6-1.0~node1) unstable; urgency=medium
 
   * create first ctlr pkg build with all patches (use -x.x for debian NMU)
