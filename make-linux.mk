@@ -314,7 +314,7 @@ zerotier-cli: zerotier-one
 	ln -sf zerotier-one zerotier-cli
 
 libzerotiercore.a:	FORCE
-	make CFLAGS="-O3 -fstack-protector -fPIC" CXXFLAGS="-O3 -std=c++11 -fstack-protector -fPIC" $(CORE_OBJS)
+	$(MAKE) CFLAGS="-O3 -fstack-protector -fPIC" CXXFLAGS="-O3 -std=c++11 -fstack-protector -fPIC" $(CORE_OBJS)
 	ar rcs libzerotiercore.a $(CORE_OBJS)
 	ranlib libzerotiercore.a
 
@@ -343,23 +343,23 @@ distclean:	clean
 realclean:	distclean
 
 official:	FORCE
-	make -j4 ZT_OFFICIAL=1 all
+	$(MAKE) ZT_OFFICIAL=1 all
 
 docker:	FORCE
 	docker build -f ext/installfiles/linux/zerotier-containerized/Dockerfile -t zerotier-containerized .
 
 controller-node:	FORCE
-	make DEFS+="-DZT_CONTROLLER" one
+	$(MAKE) DEFS+="-DZT_CONTROLLER" one
 
 central-controller:	FORCE
-	make -j4 LDLIBS="-L/usr/pgsql-10/lib/ -lpq -Lext/librabbitmq/centos_x64/lib/ -lrabbitmq" CXXFLAGS="-I/usr/pgsql-10/include -I./ext/librabbitmq/centos_x64/include -fPIC" DEFS="-DZT_CONTROLLER_USE_LIBPQ -DZT_CONTROLLER" ZT_OFFICIAL=1 ZT_USE_X64_ASM_ED25519=1 one
+	$(MAKE) LDLIBS="-L/usr/pgsql-10/lib/ -lpq -Lext/librabbitmq/centos_x64/lib/ -lrabbitmq" CXXFLAGS="-I/usr/pgsql-10/include -I./ext/librabbitmq/centos_x64/include -fPIC" DEFS="-DZT_CONTROLLER_USE_LIBPQ -DZT_CONTROLLER" ZT_OFFICIAL=1 ZT_USE_X64_ASM_ED25519=1 one
 
 central-controller-docker:	central-controller
 	docker build -t docker.zerotier.com/zerotier-central/ztcentral-controller:${TIMESTAMP} -f ext/central-controller-docker/Dockerfile .
 
 debug:	FORCE
-	make ZT_DEBUG=1 one
-	make ZT_DEBUG=1 selftest
+	$(MAKE) ZT_DEBUG=1 one
+	$(MAKE) ZT_DEBUG=1 selftest
 
 # Note: keep the symlinks in /var/lib/zerotier-one to the binaries since these
 # provide backward compatibility with old releases where the binaries actually
