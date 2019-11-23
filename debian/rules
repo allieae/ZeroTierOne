@@ -1,16 +1,59 @@
 #!/usr/bin/make -f
 
-CFLAGS=-O3 -fstack-protector-strong
-CXXFLAGS=-O3 -fstack-protector-strong
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
 
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+include /usr/share/dpkg/default.mk
+
+export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+
+ifneq ($(filter pkg.zerotier-one.dbg,$(DEB_BUILD_PROFILES)),)
+	CFLAGS=-O2
+	CXXFLAGS=-O2
+	export ZT_DEBUG=1
+	STRIP=:
+else
+	CFLAGS=-O3 -fstack-protector-strong
+	CXXFLAGS=-O3 -fstack-protector-strong
+endif
+
+ifneq ($(filter pkg.zerotier-one.ctlr,$(DEB_BUILD_PROFILES)),)
+	#MAKEFLAGS += DEFS+="-DZT_CONTROLLER"
+	ZT_BUILD="controller-node"
+	ZT_NAME="zerotier-ctlr"
+else
+	ZT_BUILD="one"
+	ZT_NAME="zerotier-one"
+endif
+
+export DESTDIR=${ZT_NAME}
+
+# debhelper 9 or less still needs this to enable parallel make
 %:
-	dh $@ --with systemd
+	dh $@ --parallel --with systemd
 
 override_dh_auto_build:
-	make -j 4
+	dh_auto_build -- ${ZT_BUILD}
+
+override_dh_strip:
+ifneq ($(filter pkg.zerotier-one.dbg,$(DEB_BUILD_PROFILES)),)
+	dh_strip --automatic-dbgsym
+else
+	dh_strip --no-automatic-dbgsym
+endif
 
 override_dh_systemd_start:
 	dh_systemd_start --restart-after-upgrade
 
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/${ZT_NAME}
+
 override_dh_installinit:
 	dh_installinit --name=zerotier-one -- defaults
+
+override_dh_auto_clean:
+	dh_auto_clean
