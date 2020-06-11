@@ -1,5 +1,6 @@
 [Unit]
 Description=ZeroTier One
+After=network.target
 After=network-online.target
 Wants=network-online.target
 
@@ -7,6 +8,7 @@ Wants=network-online.target
 ExecStart=/usr/sbin/zerotier-one
 Restart=always
 KillMode=process
+TimeoutStopSec=5
 
 [Install]
 WantedBy=multi-user.target
